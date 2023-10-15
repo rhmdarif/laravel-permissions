@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <title>{{ $title ?? 'Koperasi Simpan Pinjam' }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
@@ -41,21 +42,7 @@
                 </div>
                 <!-- End Page-content -->
 
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> © Tocly.
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="text-sm-end d-none d-sm-block">
-                                    Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-
+                @include('components.templating.anggota.footer')
             </div>
             <!-- end main content-->
 
@@ -83,6 +70,15 @@
 
         <!-- App js -->
         <script src="/assets/js/app.js"></script>
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
+
+        {{ $js ?? "" }}
 
     </body>
 
